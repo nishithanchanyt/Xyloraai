@@ -2,66 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Xylora AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xylora AI – Your Intelligent Assistant</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="app">
-    <!-- Login screen -->
+    <!-- Login Screen -->
     <div id="login-screen" class="screen">
-      <h1>Xylora AI</h1>
-      <p>Sign in to start chatting with your AI assistant</p>
-      <button id="google-login-btn">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" width="20">
-        Sign in with Google
-      </button>
+      <div class="login-card">
+        <div class="logo">
+          <div class="logo-icon">✨</div>
+          <h1>Xylora AI</h1>
+        </div>
+        <p class="subtitle">Sign in to start chatting with your AI assistant</p>
+        <button id="google-login-btn" class="btn-google">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" width="20">
+          <span>Continue with Google</span>
+        </button>
+        <p class="terms">By continuing, you agree to Xylora's Terms and Privacy Policy</p>
+      </div>
     </div>
 
-    <!-- Chat screen (hidden by default) -->
-    <div id="chat-screen" class="screen hidden">
-      <header>
-        <h1>Xylora AI</h1>
-        <div id="user-info">
-          <img id="user-photo" src="" alt="User photo" width="36" height="36">
-          <span id="user-name"></span>
-          <button id="logout-btn">Logout</button>
+    <!-- Main Chat Interface -->
+    <div id="chat-screen" class="chat-container hidden">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h2>Xylora AI</h2>
+          <button id="new-chat-btn" class="new-chat">+ New Chat</button>
         </div>
-      </header>
-      <div id="chat-box"></div>
-      <div id="input-area">
-        <input type="text" id="user-input" placeholder="Ask Xylora anything..." autocomplete="off">
-        <button id="send-btn">Send</button>
-      </div>
+        <div class="conversation-list" id="conversation-list">
+        </div>
+        <div class="sidebar-footer">
+          <div class="user-mini">
+            <img id="sidebar-avatar" src="" alt="user">
+            <span id="sidebar-name"></span>
+          </div>
+          <button id="logout-btn" class="logout-btn">Logout</button>
+        </div>
+      </aside>
+
+      <!-- Main Chat Area -->
+      <main class="main-chat">
+        <header class="chat-header">
+          <div class="header-left">
+            <button id="toggle-sidebar-btn" class="icon-btn">☰</button>
+            <h1>Xylora AI</h1>
+          </div>
+          <div class="header-right">
+            <img id="header-avatar" src="" alt="user" class="avatar">
+          </div>
+        </header>
+
+        <div class="messages-container" id="chat-box">
+          <div class="welcome-message">
+            <div class="welcome-icon">✨</div>
+            <h2>Welcome to Xylora AI</h2>
+            <p>Ask me anything – I’m here to help, create, and explore ideas with you.</p>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <div class="input-wrapper">
+            <textarea id="user-input" rows="1" placeholder="Message Xylora..." autocomplete="off"></textarea>
+            <button id="send-btn" class="send-btn" disabled>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+          <p class="footer-note">Xylora can make mistakes. Check important info.</p>
+        </div>
+      </main>
     </div>
   </div>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    // Your Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyCs_znyDpcLh4IkyBy5b8sG8_ijtVa9qc0",
-      authDomain: "xylora-ai.firebaseapp.com",
-      databaseURL: "https://xylora-ai-default-rtdb.firebaseio.com",
-      projectId: "xylora-ai",
-      storageBucket: "xylora-ai.firebasestorage.app",
-      messagingSenderId: "661792524043",
-      appId: "1:661792524043:web:9220837635a325e7b5c40e",
-      measurementId: "G-E1N0YHWQDV"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Make them global for app.js
-    window.firebaseAuth = auth;
-    window.GoogleAuthProvider = GoogleAuthProvider;
-    window.signInWithPopup = signInWithPopup;
-    window.onAuthStateChanged = onAuthStateChanged;
-    window.signOut = signOut;
-  </script>
-  <script src="app.js"></script>
+  <!-- Single module script: all Firebase + app logic -->
+  <script type="module" src="app.js"></script>
 </body>
 </html>
