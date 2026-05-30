@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Xylora AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Login screen -->
+    <div id="login-screen" class="screen">
+      <h1>Xylora AI</h1>
+      <p>Sign in to start chatting with your AI assistant</p>
+      <button id="google-login-btn">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" width="20">
+        Sign in with Google
+      </button>
+    </div>
+
+    <!-- Chat screen (hidden by default) -->
+    <div id="chat-screen" class="screen hidden">
+      <header>
+        <h1>Xylora AI</h1>
+        <div id="user-info">
+          <img id="user-photo" src="" alt="User photo" width="36" height="36">
+          <span id="user-name"></span>
+          <button id="logout-btn">Logout</button>
+        </div>
+      </header>
+      <div id="chat-box"></div>
+      <div id="input-area">
+        <input type="text" id="user-input" placeholder="Ask Xylora anything..." autocomplete="off">
+        <button id="send-btn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCs_znyDpcLh4IkyBy5b8sG8_ijtVa9qc0",
+      authDomain: "xylora-ai.firebaseapp.com",
+      databaseURL: "https://xylora-ai-default-rtdb.firebaseio.com",
+      projectId: "xylora-ai",
+      storageBucket: "xylora-ai.firebasestorage.app",
+      messagingSenderId: "661792524043",
+      appId: "1:661792524043:web:9220837635a325e7b5c40e",
+      measurementId: "G-E1N0YHWQDV"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Make them global for app.js
+    window.firebaseAuth = auth;
+    window.GoogleAuthProvider = GoogleAuthProvider;
+    window.signInWithPopup = signInWithPopup;
+    window.onAuthStateChanged = onAuthStateChanged;
+    window.signOut = signOut;
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
